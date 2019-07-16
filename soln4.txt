@@ -1,0 +1,15 @@
+Lambda:
+
+import json
+
+def lambda_handler(event, context):
+    return {
+        'statusCode': 200,
+        'body': event['name']
+    }
+
+Mapping:
+#set($inputRoot = $input.path('$'))
+{ 
+    "name" : "$input.params('name')"
+}

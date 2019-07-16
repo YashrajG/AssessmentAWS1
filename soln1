@@ -1,0 +1,30 @@
+1. Select EC2
+2. Select 'Launch Instance'
+3. Choose AMI as Ubuntu under quick start (or other as applicable)
+4. Choose 'T2 micro' Instance type
+5. Go ahead with defaults for instance configuration and storage configuration and add tags
+
+6. Configure security groups to allow http from all sources (0.0.0.0/0)
+
+7. Private Key stored at ~/Documents/Unlock/Assessment1KeyYR.pem with only read permission to owner
+    and index file at ~/TrainingAssessments/AWS/Assessment1/index.html
+
+8. Connect to the EC2 instance:
+    ssh -i "Assessment1KeyYR.pem" ubuntu@ec2-3-90-50-211.compute-1.amazonaws.com
+   type 'yes' when asked 'Are you sure you want to continue connecting (yes/no)?'
+9. Install and start Apache server:
+    sudo apt-get install apache2
+    sudo service apache2 start
+10. Exit EC2 instance
+
+11. Transfer index.html file to EC2 at ~:
+    scp -i "Documents/Unlock/Assessment1KeyYR.pem" TrainingAssessments/AWS/Assessment1/index.html ubuntu@ec2-3-90-50-211.compute-1.amazonaws.com:~
+12. Put file to /var/www/:
+    sudo cp ~/index.html ./index2.html
+
+13. From Local Browser, type the EC2 DNS or IP + '/index2.html' to view the page
+
+14. Select Snapshots in EC2 console,  Create Snapshot. Provide instance ID and description and create.
+15. Locate the created Snapshot, Actions -> Copy snapshot. Select Destination Region (Ohio) and Copy.
+16. Select region as Ohio, go to Snapshots section, locate copied snapshot and select Actions -> create image
+17. Go to AMIs, locate created image,Launch when its status becomes available.

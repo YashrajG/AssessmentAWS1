@@ -1,0 +1,11 @@
+1. Go to EC2 management console and select Load Balancers
+2. Click Create Load Balancer and choose Application Load Balancer
+3. Type a name for your load balancer, keep the default values for Scheme and IP address type.
+4. Keep listener for HTTP
+5. Choose a VPC and at least two Availability Zones inside it.
+6. Add the appropriate tags
+7. Choose Next: Configure Security Groups. 
+8. Choose an existing security group or make a new one.
+9. Either make a new target group or choose an existing target group. To add IPs as target we make a new target group with Target Type as IP.
+10. Register private IP addresses of your EC2 instances or any other service. The IP addresses should be in VPC or part of private IP address blocks
+11. Review all settings and create Load Balancer

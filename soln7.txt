@@ -1,0 +1,31 @@
+Create Launch configuration to setup LAMP stack:
+1. In EC2 management console, select Launch Configurations.
+2. Click Create Launch Configuration
+3. Choose Amazon Linux 2 AMI
+4. Choose t2.micro instance type and click on Configure Details
+5. Add a name and an IAM role for the launch configuration
+6. In Advanced details in userdata, paste the following As Text:
+        #!/bin/bash
+        yum update -y
+        amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+        yum install -y httpd mariadb-server
+        systemctl start httpd
+        systemctl enable httpd
+        usermod -a -G apache ec2-user
+        chown -R ec2-user:apache /var/www
+        chmod 2775 /var/www
+        find /var/www -type d -exec chmod 2775 {} \;
+        find /var/www -type f -exec chmod 0664 {} \;
+        echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
+9. Configure the storage and security groups as required
+10. Review all details and create Launch Configuration
+
+Create Auto Scaling Group for Launch Configuration
+1. In EC2 management console, select Auto Scaling Group.
+2. Click Create Auto Scaling Group
+3. Choose the Launch configuration created in the previous step
+4. Choose Auto Scaling group name, initial size, VPC and subnets in which instances will be launched.
+5. In advanced details, you can register your auto scaling group with a load balancer. Click 'Configure Scaling Policies'.
+6. You can add scaling policies according to which scale in and scale out will take place. Choose minimum and maximum size.
+7. Add tags for autoscaling group
+8. Review the details and launch Auto Scaling Group
